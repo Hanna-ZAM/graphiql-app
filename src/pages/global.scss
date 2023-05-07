@@ -1,5 +1,4 @@
 @import '../styles/variables.scss';
-@import '../components/Header/header.scss';
 *,
 *::before,
 *::after {
@@ -10,6 +9,10 @@
 }
 a {
   text-decoration: none;
+  color: $text-color;
+  &:active {
+    color: currentColor;
+  }
 }
 ul,
 ol,
@@ -39,6 +42,10 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  color: $text-color;
   font-style: normal;
   background-color: $background-color;
 }
+
+@import '../components/header/header.scss';
+@import '../components/footer/footer.scss';
