@@ -1,5 +1,5 @@
 import React from 'react';
-import RssLogo from '../assets/rs_school.svg';
+import RssLogo from '../../assets/rs_school.svg';
 import FooterLink from './FooterLink';
 
 const Footer = () => {
