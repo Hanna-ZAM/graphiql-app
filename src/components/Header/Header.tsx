@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import Logo from './Logo';
+import Navigate from './Navigate';
 
 const Header = () => {
   return (
     <header className="header container">
-      <Link href={'/welcome'}>
-        <Logo />
-      </Link>
-      <nav>
-        <Link href={'/main'}>go to main</Link>
-      </nav>
+      <div className="header__wrapper">
+        <Link href={'/'}>
+          <Logo />
+        </Link>
+        <Navigate />
+      </div>
     </header>
   );
 };

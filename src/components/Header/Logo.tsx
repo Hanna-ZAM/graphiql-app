@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div className="header__logo_wrapper">
       <div className="header__logo_image"></div>
-      <div className="header__logo_name">GraphiQL</div>
+      <h1 className="header__logo_name">GraphiQL</h1>
     </div>
   );
 };
