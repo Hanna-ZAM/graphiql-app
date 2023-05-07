@@ -1,5 +1,6 @@
 @use '../../styles/variables.scss';
 .footer {
+  box-shadow: inset 0px 8px 18px 5px rgba(0, 0, 0, 0.18);
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
