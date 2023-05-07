@@ -9,6 +9,10 @@
 }
 a {
   text-decoration: none;
+  color: $text-color;
+  &:active {
+    color: currentColor;
+  }
 }
 ul,
 ol,
@@ -36,8 +40,11 @@ html {
   width: calc(100% - 20px);
 }
 body {
-  font-family:'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
+  color: $text-color;
   font-style: normal;
   background-color: $background-color;
 }
+
+@import '../styles/footer.scss';

@@ -1,0 +1,31 @@
+@use './variables.scss';
+.footer {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+  }
+  .team {
+    display: flex;
+    gap: 0.5rem;
+  }
+  &-icon {
+    cursor: pointer;
+    width: 30px;
+    transition: 0.5s;
+    &:hover {
+      color: $navigate-color;
+    }
+  }
+  .rss-school {
+    width: 90px;
+    color: $text-color;
+    &:hover {
+      color: $navigate-color;
+    }
+    path {
+      fill: currentColor;
+    }
+  }
+}
