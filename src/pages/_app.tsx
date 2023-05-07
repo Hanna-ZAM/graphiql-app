@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import RootLayout from '@/layouts/RootLayout';
+import './global.scss';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
