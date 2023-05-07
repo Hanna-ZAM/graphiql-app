@@ -11,7 +11,6 @@ type ModalLoginProps = {
 const ModalLogin = ({ modalOpen, showModal }: ModalLoginProps) => {
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(true);
-  const [confirmLoading, setConfirmLoading] = useState(false);
 
   useEffect(() => {
     setOpen(modalOpen);
@@ -19,14 +18,6 @@ const ModalLogin = ({ modalOpen, showModal }: ModalLoginProps) => {
 
   const handleLogin = (item: boolean) => {
     setLogin(item);
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      showModal(false);
-      setConfirmLoading(false);
-    }, 2000);
   };
 
   const handleCancel = () => {
@@ -38,13 +29,7 @@ const ModalLogin = ({ modalOpen, showModal }: ModalLoginProps) => {
 
   return (
     <>
-      <Modal
-        open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
-      >
+      <Modal open={open} onCancel={handleCancel} footer={null}>
         <div className="modal__logo_wrapper">
           <div className="modal__logo_image"></div>
         </div>

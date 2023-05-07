@@ -46,9 +46,6 @@ body {
   font-style: normal;
   background-color: $background-color;
 }
-.main {
-  height: calc(100vh - 111px);
-}
 
 @import '../components/header/header.scss';
 @import '../components/footer/footer.scss';
