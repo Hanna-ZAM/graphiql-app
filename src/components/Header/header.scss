@@ -1,0 +1,21 @@
+.header {
+  height: 75px;
+}
+.header__logo_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 75px;
+}
+.header__logo_image {
+  display: block;
+  background-image: url('../../assets/graphql_logo.svg');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+}
+.header__logo_name {
+  color: $text-color;
+  font-size: 1.5rem;
+}
