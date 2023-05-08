@@ -1,0 +1,65 @@
+@use '../../styles/variables.scss';
+.welcome {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  hr {
+    box-shadow: 0 11px 22px rgba(0, 0, 0, 0.18);
+    display: block;
+    height: 1px;
+  }
+  &-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+    justify-content: center;
+    & > * {
+      margin: 0 auto;
+    }
+  }
+  &-header {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+    @media (min-width: 320px) {
+      font-size: 1rem;
+    }
+    @media (min-width: 440px) {
+      font-size: 1.75rem;
+    }
+    @media (min-width: 780px) {
+      font-size: 2.5rem;
+    }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(-60deg);
+    }
+    100% {
+      transform: rotate(60deg);
+    }
+  }
+  &-logo {
+    max-width: 20rem;
+    width: 100%;
+    animation: rotate 2s infinite;
+  }
+
+  &-text {
+    font-size: 1.2em;
+    font-weight: lighter;
+    i {
+      text-decoration: underline;
+      opacity: 0.6;
+    }
+    @media (min-width: 320px) {
+      width: 100%;
+      font-size: 1.2em;
+    }
+    @media (min-width: 780px) {
+      width: 780px;
+    }
+  }
+}

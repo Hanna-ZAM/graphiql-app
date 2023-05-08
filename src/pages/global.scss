@@ -46,5 +46,16 @@ body {
   font-style: normal;
   background-color: $background-color;
 }
-
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  .main {
+    flex-grow: 1;
+  }
+  .container {
+    padding: 0.5rem;
+  }
+}
 @import '../components/footer/footer.scss';
+@import '../components/welcome/welcome.scss';
