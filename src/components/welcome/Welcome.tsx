@@ -1,21 +1,34 @@
 import React from 'react';
 import GraphqlLogo from '../../assets/graphql_logo.svg';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const Welcome = () => (
-  <section className="welcome">
-    <h2 className="welcome-header">A query language for your API</h2>
-    <hr />
-    <div className="welcome-main container">
-      <GraphqlLogo className="welcome-logo" />
-      <p className="welcome-text">
-        <i>GraphQL</i> is a query language for APIs and a runtime for fulfilling
-        those queries with your existing data. GraphQL provides a complete and
-        understandable description of the data in your API, gives clients the
-        power to ask for exactly what they need and nothing more, makes it
-        easier to evolve APIs over time, and enables powerful developer tools.
-      </p>
-    </div>
-  </section>
-);
+const Welcome = () => {
+  const { t } = useTranslation('welcome');
+  const router = useRouter();
+  // TODO:Delete exmaple translate buttons
+  return (
+    <section className="welcome">
+      <Link href={router.asPath} locale={'en'}>
+        en
+      </Link>
+      <Link href={router.asPath} locale={'ru'}>
+        ru
+      </Link>
+      <h2 className="welcome-header">{t('welcome_header')}</h2>
+      <hr />
+      <div className="welcome-main container">
+        <GraphqlLogo className="welcome-logo" />
+        <p className="welcome-text">
+          <Link href={'https://graphql.org/'} target="_blank">
+            <i>GraphQL</i>
+          </Link>
+          {t('welcome_text')}
+        </p>
+      </div>
+    </section>
+  );
+};
 
 export default Welcome;
