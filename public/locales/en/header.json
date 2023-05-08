@@ -1,0 +1,19 @@
+{
+  "home": "Home",
+  "ru": "ru",
+  "en": "en",
+  "login": "Log in",
+  "email": "Email",
+  "password": "Password",
+  "or": " or ",
+  "register_now": "register now!",
+  "confirm": "Confirm password!",
+  "email_error": "Please input your Email!",
+  "email_invalid": "The input is not valid E-mail!",
+  "password_error": "Please input your password!",
+  "password_confirm": "Please confirm your password!",
+  "password_confirm_error": "The two passwords that you entered do not match!",
+  "agreement": "I have read the agreement",
+  "agreement_error": "Should accept agreement",
+  "register_form": "Register"
+}
