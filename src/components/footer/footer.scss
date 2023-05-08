@@ -1,6 +1,5 @@
 @use '../../styles/variables.scss';
 .footer {
-  box-shadow: inset 0px 8px 18px 5px rgba(0, 0, 0, 0.18);
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -10,6 +9,7 @@
   .team {
     display: flex;
     gap: 0.5rem;
+    justify-self: start;
   }
   &-icon {
     cursor: pointer;
@@ -20,6 +20,7 @@
     }
   }
   .rss-school {
+    justify-self: end;
     width: 90px;
     color: $text-color;
     &:hover {
