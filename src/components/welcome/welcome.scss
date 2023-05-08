@@ -42,9 +42,14 @@
     }
   }
   &-logo {
-    max-width: 20rem;
-    width: 100%;
     animation: rotate 2s infinite;
+    max-width: 20rem;
+    @media (min-width: 200px) {
+      height: 14rem;
+    }
+    @media (min-width: 540px) {
+      height: auto;
+    }
   }
 
   &-text {
