@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import RootLayout from '@/layouts/RootLayout';
 import './global.scss';
+import '../firebaseConfig';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { appWithTranslation } from 'next-i18next';
 config.autoAddCss = false;

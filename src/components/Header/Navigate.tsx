@@ -1,26 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
   faRightToBracket,
+  faRightFromBracket,
   faHouse,
   faLanguage
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Space, Tooltip } from 'antd';
+import { Space, Tooltip, Modal } from 'antd';
 import { useState } from 'react';
 import ModalLogin from './ModalLogin';
 
+const { confirm } = Modal;
+
 const Navigate = () => {
   const [languageTooltip, setLanguageTooltip] = useState('RU');
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
-  const handleClick = () => {
+  const handleClickLanguage = () => {
     setLanguageTooltip(languageTooltip === 'EN' ? 'RU' : 'EN');
   };
 
-  const showModal = (item: boolean) => {
-    setOpen(item);
+  const handleClickModal = () => {
+    setIsModalOpen(true);
   };
+
+  const showConfirm = () => {
+    confirm({
+      title: 'Do you want to log out?',
+      onOk() {
+        sessionStorage.setItem('isLoggedIn', '');
+        setIsLogin(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn) {
+      setIsLogin(true);
+    }
+  }, []);
 
   return (
     <>
@@ -35,19 +56,33 @@ const Navigate = () => {
             <FontAwesomeIcon
               icon={faLanguage}
               className="header__nav_icon"
-              onClick={handleClick}
+              onClick={handleClickLanguage}
             />
           </Tooltip>
-          <Tooltip placement="bottomRight" title="Log In">
-            <FontAwesomeIcon
-              icon={faRightToBracket}
-              className="header__nav_icon"
-              onClick={() => showModal(true)}
-            />
-          </Tooltip>
+          {isLogin ? (
+            <Tooltip placement="bottomRight" title="Log out">
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                className="header__nav_icon"
+                onClick={showConfirm}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip placement="bottomRight" title="Log in">
+              <FontAwesomeIcon
+                icon={faRightToBracket}
+                className="header__nav_icon"
+                onClick={handleClickModal}
+              />
+            </Tooltip>
+          )}
         </Space>
       </nav>
-      <ModalLogin modalOpen={open} showModal={showModal} />
+      <ModalLogin
+        setIsLogin={setIsLogin}
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+      />
     </>
   );
 };

@@ -1,27 +1,65 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { ILogin } from '@/types';
 
 type FormLoginProps = {
-  setLogin: (item: boolean) => void;
-  setModal: (item: boolean) => void;
+  setForm: (item: boolean) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+  setIsLogin: (item: boolean) => void;
 };
 
-const FormLogin = ({ setLogin, setModal }: FormLoginProps) => {
-  const onFinish = (values: any) => {
-    setModal(false);
-    console.log('Received values of form: ', values);
+const FormLogin = ({ setIsLogin, setForm, setIsModalOpen }: FormLoginProps) => {
+  const [form] = Form.useForm();
+
+  const onFinish = async ({ email, password }: ILogin) => {
+    const auth = getAuth();
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        setIsLogin(true);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        setIsModalOpen(false);
+        setTimeout(() => {
+          setForm(true);
+        }, 500);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          form.setFields([
+            {
+              name: 'email',
+              errors: ['User not found']
+            }
+          ]);
+        } else if (error.code === 'auth/wrong-password') {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Wrong password']
+            }
+          ]);
+        } else {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Login failed']
+            }
+          ]);
+        }
+      });
   };
 
   return (
     <Form
       name="normal_login"
       className="login-form"
+      form={form}
       initialValues={{ remember: true }}
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
+        name="email"
         rules={[{ required: true, message: 'Please input your Email!' }]}
       >
         <Input
@@ -45,7 +83,7 @@ const FormLogin = ({ setLogin, setModal }: FormLoginProps) => {
           Log in
         </Button>
         Or{' '}
-        <span className="form__link" onClick={() => setLogin(false)}>
+        <span className="form__link" onClick={() => setForm(false)}>
           register now!
         </span>
       </Form.Item>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input, Select } from 'antd';
-
-const { Option } = Select;
+import React from 'react';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ILogin } from '@/types';
 
 const formItemLayout = {
   labelCol: {
@@ -28,19 +28,46 @@ const tailFormItemLayout = {
 };
 
 type FormRegisterProps = {
-  setLogin: (item: boolean) => void;
-  setModal: (item: boolean) => void;
+  setForm: (item: boolean) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+  setIsLogin: (item: boolean) => void;
 };
 
-const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
+const FormRegister = ({
+  setIsLogin,
+  setForm,
+  setIsModalOpen
+}: FormRegisterProps) => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    setModal(false);
-    setTimeout(() => {
-      setLogin(true);
-    }, 500);
-    console.log('Received values of form: ', values);
+  const onFinish = async ({ email, password }: ILogin) => {
+    const auth = getAuth();
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        setIsLogin(true);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        setIsModalOpen(false);
+        setTimeout(() => {
+          setForm(true);
+        }, 500);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          form.setFields([
+            {
+              name: 'email',
+              errors: ['This email is already registered']
+            }
+          ]);
+        } else {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Registration failed']
+            }
+          ]);
+        }
+      });
   };
 
   return (
@@ -128,7 +155,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
           Register
         </Button>
         Or{' '}
-        <span className="form__link" onClick={() => setLogin(true)}>
+        <span className="form__link" onClick={() => setForm(true)}>
           log in!
         </span>
       </Form.Item>
