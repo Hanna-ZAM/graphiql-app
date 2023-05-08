@@ -55,7 +55,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
     >
       <Form.Item
         name="email"
-        label="E-mail"
+        label={t('email')}
         rules={[
           {
             type: 'email',
@@ -72,7 +72,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
 
       <Form.Item
         name="password"
-        label="Password"
+        label={t('password')}
         rules={[
           {
             required: true,
@@ -86,7 +86,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
 
       <Form.Item
         name="confirm"
-        label="Confirm Password"
+        label={t('confirm')}
         dependencies={['password']}
         hasFeedback
         rules={[
