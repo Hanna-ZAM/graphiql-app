@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input, Select } from 'antd';
+import { useTranslation } from 'next-i18next';
 
 const { Option } = Select;
 
@@ -34,7 +35,7 @@ type FormRegisterProps = {
 
 const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
   const [form] = Form.useForm();
-
+  const { t } = useTranslation('header');
   const onFinish = (values: any) => {
     setModal(false);
     setTimeout(() => {
@@ -58,11 +59,11 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!'
+            message: t('email_invalid') ?? ''
           },
           {
             required: true,
-            message: 'Please input your E-mail!'
+            message: t('email_error') ?? ''
           }
         ]}
       >
@@ -75,7 +76,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!'
+            message: t('password_error') ?? ''
           }
         ]}
         hasFeedback
@@ -91,7 +92,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!'
+            message: t('password_confirm') ?? ''
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
@@ -99,7 +100,7 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
                 return Promise.resolve();
               }
               return Promise.reject(
-                new Error('The two passwords that you entered do not match!')
+                new Error(t('password_confirm_error') ?? '')
               );
             }
           })
@@ -116,20 +117,20 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
             validator: (_, value) =>
               value
                 ? Promise.resolve()
-                : Promise.reject(new Error('Should accept agreement'))
+                : Promise.reject(new Error(t('agreement_error') ?? ''))
           }
         ]}
         {...tailFormItemLayout}
       >
-        <Checkbox>I have read the agreement</Checkbox>
+        <Checkbox>{t('agreement')}</Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
-          Register
+          {t('register_form')}
         </Button>
-        Or{' '}
+        {t('or')}
         <span className="form__link" onClick={() => setLogin(true)}>
-          log in!
+          {t('login')}
         </span>
       </Form.Item>
     </Form>

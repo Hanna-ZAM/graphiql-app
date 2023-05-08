@@ -10,7 +10,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
   const lang = locale ?? 'en';
   return {
     props: {
-      ...(await serverSideTranslations(lang, ['common', 'welcome']))
+      ...(await serverSideTranslations(lang, ['common', 'welcome', 'header']))
     }
   };
 }
