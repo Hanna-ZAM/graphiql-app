@@ -14,6 +14,8 @@
   "password_error": "Please input your password!",
   "password_confirm": "Please confirm your password!",
   "password_confirm_error": "The two passwords that you entered do not match!",
+  "password_long": "Password must be at least 8 characters long",
+  "password_contain": "Password must contain at least one letter, one number, one special character",
   "agreement": "I have read the agreement",
   "agreement_error": "Should accept agreement",
   "register_form": "Register"

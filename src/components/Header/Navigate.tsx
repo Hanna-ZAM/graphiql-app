@@ -16,16 +16,11 @@ import { useRouter } from 'next/router';
 const { confirm } = Modal;
 
 const Navigate = () => {
-  const [languageTooltip, setLanguageTooltip] = useState('RU');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const { t } = useTranslation('header');
   const router = useRouter();
   const locale = i18n?.language === 'en' ? 'RU' : 'EN';
-
-  const handleClickLanguage = () => {
-    setLanguageTooltip(languageTooltip === 'EN' ? 'RU' : 'EN');
-  };
 
   const handleClickModal = () => {
     setIsModalOpen(true);
