@@ -103,6 +103,15 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
           {
             required: true,
             message: t('password_error') ?? ''
+          },
+          {
+            min: 8,
+            message: t('password_long') ?? ''
+          },
+          {
+            pattern:
+              /(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])(?=.*[^\da-zA-Z]).*/,
+            message: t('password_contain') ?? ''
           }
         ]}
         hasFeedback

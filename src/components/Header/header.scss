@@ -12,6 +12,9 @@
   align-items: center;
   width: 150px;
   height: 75px;
+  @media (max-width: 380px) {
+    width: 32px;
+  }
 }
 .header__logo_image {
   display: block;
@@ -19,6 +22,17 @@
   background-repeat: no-repeat;
   width: 32px;
   height: 32px;
+}
+.header__logo_name {
+  color: $text-color;
+  font-size: 1.5rem;
+  transition: 0.5s;
+  &:hover {
+    color: $navigate-color;
+  }
+  @media (max-width: 380px) {
+    display: none;
+  }
 }
 .modal__logo_wrapper {
   display: flex;
@@ -33,14 +47,6 @@
   width: 50px;
   height: 50px;
 }
-.header__logo_name {
-  color: $text-color;
-  font-size: 1.5rem;
-  transition: 0.5s;
-  &:hover {
-    color: $navigate-color;
-  }
-}
 .header__nav_icon {
   cursor: pointer;
   width: 30px;
@@ -51,10 +57,10 @@
 }
 .form__link {
   cursor: pointer;
-  color: blue;
+  color: #1677ff;
   font-weight: 700;
   transition: 0.2s;
   &:hover {
-    color: $navigate-color;
+    color: #4096ff;
   }
 }
