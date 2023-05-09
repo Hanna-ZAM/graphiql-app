@@ -20,7 +20,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (isLoggedIn) return;
     router.replace('/');
-  }, [router]);
+  }, [router, isLogin]);
   return (
     <AuthContext.Provider value={AuthMemo}>
       <Header />
