@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { ILogin } from '@/types';
+import { FormView, ILogin } from '@/types';
 import { useTranslation } from 'next-i18next';
+import useAuth from '@/hooks/useAuth';
+import { NavigateContext } from './Navigate';
 
 type FormLoginProps = {
-  setForm: (item: boolean) => void;
-  setIsModalOpen: (isModalOpen: boolean) => void;
-  setIsLogin: (item: boolean) => void;
+  setForm: (item: FormView) => void;
 };
 
-const FormLogin = ({ setIsLogin, setForm, setIsModalOpen }: FormLoginProps) => {
+const FormLogin = ({ setForm }: FormLoginProps) => {
   const { t } = useTranslation('header');
   const [form] = Form.useForm();
-
+  const { setIsLogin } = useAuth();
+  const modalContext = useContext(NavigateContext);
   const onFinish = async ({ email, password }: ILogin) => {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setIsLogin(true);
         sessionStorage.setItem('isLoggedIn', 'true');
-        setIsModalOpen(false);
+        modalContext?.setIsModalOpen(false);
         setTimeout(() => {
-          setForm(true);
+          setForm('login');
         }, 500);
       })
       .catch((error) => {
@@ -85,7 +86,7 @@ const FormLogin = ({ setIsLogin, setForm, setIsModalOpen }: FormLoginProps) => {
           {t('login')}
         </Button>
         Or{' '}
-        <span className="form__link" onClick={() => setForm(false)}>
+        <span className="form__link" onClick={() => setForm('register')}>
           {t('register_now')}
         </span>
       </Form.Item>

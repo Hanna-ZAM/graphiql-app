@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useTranslation } from 'next-i18next';
-import { ILogin } from '@/types';
+import { FormView, ILogin } from '@/types';
+import useAuth from '@/hooks/useAuth';
+import { NavigateContext } from './Navigate';
 
 const formItemLayout = {
   labelCol: {
@@ -29,28 +31,24 @@ const tailFormItemLayout = {
 };
 
 type FormRegisterProps = {
-  setForm: (item: boolean) => void;
-  setIsModalOpen: (isModalOpen: boolean) => void;
-  setIsLogin: (item: boolean) => void;
+  setForm: (item: FormView) => void;
 };
 
-const FormRegister = ({
-  setIsLogin,
-  setForm,
-  setIsModalOpen
-}: FormRegisterProps) => {
+const FormRegister = ({ setForm }: FormRegisterProps) => {
   const { t } = useTranslation('header');
   const [form] = Form.useForm();
 
   const onFinish = async ({ email, password }: ILogin) => {
     const auth = getAuth();
+    const { setIsLogin } = useAuth();
+    const modalContext = useContext(NavigateContext);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         setIsLogin(true);
         sessionStorage.setItem('isLoggedIn', 'true');
-        setIsModalOpen(false);
+        modalContext?.setIsModalOpen(false);
         setTimeout(() => {
-          setForm(true);
+          setForm('login');
         }, 500);
       })
       .catch((error) => {
@@ -166,7 +164,7 @@ const FormRegister = ({
           {t('register_form')}
         </Button>
         Or{' '}
-        <span className="form__link" onClick={() => setForm(true)}>
+        <span className="form__link" onClick={() => setForm('login')}>
           {t('login')}
         </span>
       </Form.Item>

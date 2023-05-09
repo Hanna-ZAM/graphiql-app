@@ -4,6 +4,7 @@
   "en": "en",
   "login": "Log in",
   "logout": "Log out",
+  "logout_msg": "Do you want to log out?",
   "email": "Email",
   "password": "Password",
   "or": " or ",
