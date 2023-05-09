@@ -4,39 +4,44 @@ import FormLogin from './FormLogin';
 import FormRegister from './FormRegister';
 
 type ModalLoginProps = {
-  modalOpen: boolean;
-  showModal: (item: boolean) => void;
+  isModalOpen: boolean;
+  setIsLogin: (isLogin: boolean) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
 };
 
-const ModalLogin = ({ modalOpen, showModal }: ModalLoginProps) => {
-  const [open, setOpen] = useState(false);
-  const [login, setLogin] = useState(true);
-
-  useEffect(() => {
-    setOpen(modalOpen);
-  }, [modalOpen]);
-
-  const handleLogin = (item: boolean) => {
-    setLogin(item);
-  };
+const ModalLogin = ({
+  isModalOpen,
+  setIsModalOpen,
+  setIsLogin
+}: ModalLoginProps) => {
+  const [isForm, setIsForm] = useState(true);
 
   const handleCancel = () => {
-    showModal(false);
-    setTimeout(() => {
-      setLogin(true);
-    }, 500);
+    setIsModalOpen(false);
+  };
+
+  const handleForm = (isForm: boolean) => {
+    setIsForm(isForm);
   };
 
   return (
     <>
-      <Modal open={open} onCancel={handleCancel} footer={null}>
+      <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
         <div className="modal__logo_wrapper">
           <div className="modal__logo_image"></div>
         </div>
-        {login ? (
-          <FormLogin setLogin={handleLogin} setModal={showModal} />
+        {isForm ? (
+          <FormLogin
+            setIsLogin={setIsLogin}
+            setForm={handleForm}
+            setIsModalOpen={setIsModalOpen}
+          />
         ) : (
-          <FormRegister setLogin={handleLogin} setModal={showModal} />
+          <FormRegister
+            setIsLogin={setIsLogin}
+            setForm={handleForm}
+            setIsModalOpen={setIsModalOpen}
+          />
         )}
       </Modal>
     </>

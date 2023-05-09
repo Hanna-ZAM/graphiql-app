@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input, Select } from 'antd';
+import React from 'react';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useTranslation } from 'next-i18next';
-
-const { Option } = Select;
+import { ILogin } from '@/types';
 
 const formItemLayout = {
   labelCol: {
@@ -29,19 +29,47 @@ const tailFormItemLayout = {
 };
 
 type FormRegisterProps = {
-  setLogin: (item: boolean) => void;
-  setModal: (item: boolean) => void;
+  setForm: (item: boolean) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+  setIsLogin: (item: boolean) => void;
 };
 
-const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
-  const [form] = Form.useForm();
+const FormRegister = ({
+  setIsLogin,
+  setForm,
+  setIsModalOpen
+}: FormRegisterProps) => {
   const { t } = useTranslation('header');
-  const onFinish = (values: any) => {
-    setModal(false);
-    setTimeout(() => {
-      setLogin(true);
-    }, 500);
-    console.log('Received values of form: ', values);
+  const [form] = Form.useForm();
+
+  const onFinish = async ({ email, password }: ILogin) => {
+    const auth = getAuth();
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        setIsLogin(true);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        setIsModalOpen(false);
+        setTimeout(() => {
+          setForm(true);
+        }, 500);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          form.setFields([
+            {
+              name: 'email',
+              errors: ['This email is already registered']
+            }
+          ]);
+        } else {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Registration failed']
+            }
+          ]);
+        }
+      });
   };
 
   return (
@@ -128,8 +156,8 @@ const FormRegister = ({ setLogin, setModal }: FormRegisterProps) => {
         <Button type="primary" htmlType="submit">
           {t('register_form')}
         </Button>
-        {t('or')}
-        <span className="form__link" onClick={() => setLogin(true)}>
+        Or{' '}
+        <span className="form__link" onClick={() => setForm(true)}>
           {t('login')}
         </span>
       </Form.Item>
