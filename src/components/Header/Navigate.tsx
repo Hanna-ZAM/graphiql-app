@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   faRightToBracket,
@@ -8,24 +8,25 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Space, Tooltip, Modal } from 'antd';
-import { useState } from 'react';
 import ModalLogin from './ModalLogin';
 import { i18n, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import useAuth from '@/hooks/useAuth';
+import { NavigateContextType } from '@/types';
 
 const { confirm } = Modal;
+export const NavigateContext = createContext<NavigateContextType | null>(null);
 
 const Navigate = () => {
-  const [languageTooltip, setLanguageTooltip] = useState('RU');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const { isLogin, setIsLogin } = useAuth();
+  const NavigateMemo = useMemo(
+    () => ({ isModalOpen, setIsModalOpen }),
+    [isModalOpen]
+  );
   const { t } = useTranslation('header');
   const router = useRouter();
   const locale = i18n?.language === 'en' ? 'RU' : 'EN';
-
-  const handleClickLanguage = () => {
-    setLanguageTooltip(languageTooltip === 'EN' ? 'RU' : 'EN');
-  };
 
   const handleClickModal = () => {
     setIsModalOpen(true);
@@ -33,7 +34,7 @@ const Navigate = () => {
 
   const showConfirm = () => {
     confirm({
-      title: 'Do you want to log out?',
+      title: t('logout_msg'),
       onOk() {
         sessionStorage.setItem('isLoggedIn', '');
         setIsLogin(false);
@@ -49,7 +50,7 @@ const Navigate = () => {
   }, []);
 
   return (
-    <>
+    <NavigateContext.Provider value={NavigateMemo}>
       <nav>
         <Space size="middle">
           <Link href={'/main'}>
@@ -82,12 +83,8 @@ const Navigate = () => {
           )}
         </Space>
       </nav>
-      <ModalLogin
-        setIsLogin={setIsLogin}
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}
-      />
-    </>
+      <ModalLogin />
+    </NavigateContext.Provider>
   );
 };
 

@@ -4,6 +4,7 @@
   "en": "en",
   "login": "Войти",
   "logout": "Выйти",
+  "logout_msg": "Выйти?",
   "email": "Почта",
   "password": "Пароль",
   "or": " или ",

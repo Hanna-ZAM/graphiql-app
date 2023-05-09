@@ -2,11 +2,9 @@ import React from 'react';
 import GraphqlLogo from '../../assets/graphql_logo.svg';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const Welcome = () => {
   const { t } = useTranslation('welcome');
-  const router = useRouter();
   return (
     <section className="welcome">
       <h2 className="welcome-header">{t('welcome_header')}</h2>
