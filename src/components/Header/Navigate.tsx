@@ -13,9 +13,12 @@ import { i18n, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import useAuth from '@/hooks/useAuth';
 import { NavigateContextType } from '@/types';
+import { getAuth, signOut } from 'firebase/auth';
+import app from '@/firebaseConfig';
 
 const { confirm } = Modal;
 export const NavigateContext = createContext<NavigateContextType | null>(null);
+const auth = getAuth(app);
 
 const Navigate = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +40,8 @@ const Navigate = () => {
       title: t('logout_msg'),
       onOk() {
         sessionStorage.setItem('isLoggedIn', '');
-        setIsLogin(false);
+        signOut(auth);
+        // setIsLogin(false);
       }
     });
   };
@@ -53,12 +57,13 @@ const Navigate = () => {
     <NavigateContext.Provider value={NavigateMemo}>
       <nav>
         <Space size="middle">
-          <Link href={'/main'}>
-            <Tooltip placement="bottomLeft" title={t('home')}>
-              <FontAwesomeIcon icon={faHouse} className="header__nav_icon" />
-            </Tooltip>
-          </Link>
-
+          {isLogin && (
+            <Link href={'/main'}>
+              <Tooltip placement="bottomLeft" title={t('home')}>
+                <FontAwesomeIcon icon={faHouse} className="header__nav_icon" />
+              </Tooltip>
+            </Link>
+          )}
           <Tooltip placement="bottom" title={locale}>
             <Link href={router.asPath} locale={locale.toLowerCase()}>
               <FontAwesomeIcon icon={faLanguage} className="header__nav_icon" />

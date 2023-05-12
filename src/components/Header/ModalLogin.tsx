@@ -9,6 +9,7 @@ const ModalLogin = () => {
   const modalContext = useContext(NavigateContext);
   const handleCancel = () => {
     modalContext?.setIsModalOpen(false);
+    setFormType('login');
   };
 
   const handleForm = (isForm: FormView) => {

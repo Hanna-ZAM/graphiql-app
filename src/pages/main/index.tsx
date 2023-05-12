@@ -1,5 +1,5 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function MainPage() {
   return <>Main page</>;
