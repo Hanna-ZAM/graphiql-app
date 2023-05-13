@@ -4,7 +4,6 @@ import { Button, Form, Input } from 'antd';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FormView, ILogin } from '@/types';
 import { useTranslation } from 'next-i18next';
-import useAuth from '@/hooks/useAuth';
 import { NavigateContext } from './Navigate';
 
 type FormLoginProps = {
@@ -14,18 +13,12 @@ type FormLoginProps = {
 const FormLogin = ({ setForm }: FormLoginProps) => {
   const { t } = useTranslation('header');
   const [form] = Form.useForm();
-  const { setIsLogin } = useAuth();
   const modalContext = useContext(NavigateContext);
   const onFinish = async ({ email, password }: ILogin) => {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        setIsLogin(true);
-        sessionStorage.setItem('isLoggedIn', 'true');
         modalContext?.setIsModalOpen(false);
-        setTimeout(() => {
-          setForm('login');
-        }, 500);
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {

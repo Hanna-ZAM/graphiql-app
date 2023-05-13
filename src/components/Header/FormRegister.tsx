@@ -3,7 +3,6 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useTranslation } from 'next-i18next';
 import { FormView, ILogin } from '@/types';
-import useAuth from '@/hooks/useAuth';
 import { NavigateContext } from './Navigate';
 
 const formItemLayout = {
@@ -37,19 +36,13 @@ type FormRegisterProps = {
 const FormRegister = ({ setForm }: FormRegisterProps) => {
   const { t } = useTranslation('header');
   const [form] = Form.useForm();
+  const modalContext = useContext(NavigateContext);
+  const auth = getAuth();
 
   const onFinish = async ({ email, password }: ILogin) => {
-    const auth = getAuth();
-    const { setIsLogin } = useAuth();
-    const modalContext = useContext(NavigateContext);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        setIsLogin(true);
-        sessionStorage.setItem('isLoggedIn', 'true');
         modalContext?.setIsModalOpen(false);
-        setTimeout(() => {
-          setForm('login');
-        }, 500);
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
@@ -68,6 +61,7 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
           ]);
         }
       });
+    setForm('login');
   };
 
   return (
