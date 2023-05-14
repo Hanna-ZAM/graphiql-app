@@ -1,6 +1,7 @@
 import React from 'react';
 import RssLogo from '../../assets/rs_school.svg';
 import FooterLink from './FooterLink';
+import Link from 'next/link';
 
 const Footer = () => {
   const TEAMMATES_GITHUB = [
@@ -26,7 +27,13 @@ const Footer = () => {
           ))}
         </div>
         2023
-        <RssLogo className={'footer-icon rss-school'} />
+        <Link
+          className={'footer-icon rss-school'}
+          href="https://rs.school/"
+          target={'_blank'}
+        >
+          <RssLogo />
+        </Link>
       </div>
     </footer>
   );

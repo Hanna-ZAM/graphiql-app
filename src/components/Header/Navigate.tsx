@@ -41,7 +41,6 @@ const Navigate = () => {
       onOk() {
         sessionStorage.setItem('isLoggedIn', '');
         signOut(auth);
-        // setIsLogin(false);
       }
     });
   };

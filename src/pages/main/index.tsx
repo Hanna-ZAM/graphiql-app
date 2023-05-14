@@ -1,8 +1,13 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Editor from '@/components/editor/Editor';
 
 export default function MainPage() {
-  return <>Main page</>;
+  return (
+    <div>
+      <Editor />
+    </div>
+  );
 }
 
 export async function getStaticProps({ locale }: { locale: string }) {

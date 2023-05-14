@@ -1,0 +1,34 @@
+@use '../../styles/variables.scss';
+.editor__wrapper {
+  position: relative;
+  padding: 40px 5px 5px 5px;
+  border: 2px solid $border-color;
+  height: calc(100vh - 145px);
+  background-color: $background-editor;
+}
+.editor__code {
+  height: 100%;
+  width: 50%;
+  color: #000000;
+  @media (max-width: 540px) {
+    width: 100%;
+    height: 50%;
+  }
+}
+.editor__svg {
+  position: absolute;
+  cursor: pointer;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+}
+.editor__button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 5px;
+}
