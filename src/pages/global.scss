@@ -36,7 +36,7 @@ html {
 }
 .container {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1440px;
   width: calc(100% - 20px);
 }
 body {
@@ -60,3 +60,4 @@ body {
 @import '../components/header/header.scss';
 @import '../components/footer/footer.scss';
 @import '../components/welcome/welcome.scss';
+@import '../components/editor/editor.scss';
