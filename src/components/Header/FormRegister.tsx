@@ -43,25 +43,25 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         modalContext?.setIsModalOpen(false);
+        setForm('login');
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           form.setFields([
             {
               name: 'email',
-              errors: ['This email is already registered']
+              errors: [t('register_failed_email') ?? '']
             }
           ]);
         } else {
           form.setFields([
             {
               name: 'password',
-              errors: ['Registration failed']
+              errors: [t('register_failed') ?? '']
             }
           ]);
         }
       });
-    setForm('login');
   };
 
   return (

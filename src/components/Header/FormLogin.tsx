@@ -25,21 +25,21 @@ const FormLogin = ({ setForm }: FormLoginProps) => {
           form.setFields([
             {
               name: 'email',
-              errors: ['User not found']
+              errors: [t('user_not_found') ?? '']
             }
           ]);
         } else if (error.code === 'auth/wrong-password') {
           form.setFields([
             {
               name: 'password',
-              errors: ['Wrong password']
+              errors: [t('wrong_password') ?? '']
             }
           ]);
         } else {
           form.setFields([
             {
               name: 'password',
-              errors: ['Login failed']
+              errors: [t('login_failed') ?? '']
             }
           ]);
         }

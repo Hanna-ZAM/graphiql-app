@@ -9,6 +9,8 @@
   "password": "Password",
   "or": " or ",
   "register_now": "register now!",
+  "register_failed": "Registration failed",
+  "register_failed_email": "This email is already registered",
   "confirm": "Confirm Password",
   "email_error": "Please input your Email!",
   "email_invalid": "The input is not valid E-mail!",
@@ -19,5 +21,8 @@
   "password_contain": "Password must contain at least one letter, one number, one special character",
   "agreement": "I have read the agreement",
   "agreement_error": "Should accept agreement",
-  "register_form": "Register"
+  "register_form": "Register",
+  "user_not_found": "User not found",
+  "wrong_password": "Wrong password",
+  "login_failed": "Login failed"
 }
