@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useTranslation } from 'next-i18next';
-import { FormView, ILogin } from '@/types';
-import { NavigateContext } from './Navigate';
+import { ILogin } from '@/types';
+import { useRouter } from 'next/router';
 
 const formItemLayout = {
   labelCol: {
@@ -29,23 +29,15 @@ const tailFormItemLayout = {
   }
 };
 
-type FormRegisterProps = {
-  setForm: (item: FormView) => void;
-};
-
-const FormRegister = ({ setForm }: FormRegisterProps) => {
+const FormRegister = () => {
   const { t } = useTranslation('header');
   const [form] = Form.useForm();
-  const modalContext = useContext(NavigateContext);
   const auth = getAuth();
+  const router = useRouter();
 
   const onFinish = async ({ email, password }: ILogin) => {
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        modalContext?.setIsModalOpen(false);
-        setForm('login');
-      })
-      .catch((error) => {
+    await createUserWithEmailAndPassword(auth, email, password).catch(
+      (error) => {
         if (error.code === 'auth/email-already-in-use') {
           form.setFields([
             {
@@ -61,7 +53,8 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
             }
           ]);
         }
-      });
+      }
+    );
   };
 
   return (
@@ -72,6 +65,7 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
       onFinish={onFinish}
       style={{ maxWidth: 600 }}
       scrollToFirstError
+      className="register-form"
     >
       <Form.Item
         name="email"
@@ -157,8 +151,8 @@ const FormRegister = ({ setForm }: FormRegisterProps) => {
         <Button type="primary" htmlType="submit">
           {t('register_form')}
         </Button>
-        Or{' '}
-        <span className="form__link" onClick={() => setForm('login')}>
+        {t('or')}
+        <span className="form__link" onClick={() => router.push('/login')}>
           {t('login')}
         </span>
       </Form.Item>

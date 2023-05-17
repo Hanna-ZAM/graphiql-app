@@ -1,40 +1,28 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
-  faRightToBracket,
-  faRightFromBracket,
   faHouse,
-  faLanguage
+  faLanguage,
+  faUserPen
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Space, Tooltip, Modal } from 'antd';
-import ModalLogin from './ModalLogin';
 import { i18n, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import useAuth from '@/hooks/useAuth';
-import { NavigateContextType } from '@/types';
 import { getAuth, signOut } from 'firebase/auth';
 import app from '@/firebaseConfig';
+import Logout from './Logout';
+import Login from './Login';
 
 const { confirm } = Modal;
-export const NavigateContext = createContext<NavigateContextType | null>(null);
 const auth = getAuth(app);
 
 const Navigate = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { isLogin, setIsLogin } = useAuth();
-  const NavigateMemo = useMemo(
-    () => ({ isModalOpen, setIsModalOpen }),
-    [isModalOpen]
-  );
   const { t } = useTranslation('header');
   const router = useRouter();
   const locale = i18n?.language === 'en' ? 'RU' : 'EN';
-
-  const handleClickModal = () => {
-    setIsModalOpen(true);
-  };
-
   const showConfirm = () => {
     confirm({
       title: t('logout_msg'),
@@ -53,42 +41,37 @@ const Navigate = () => {
   }, []);
 
   return (
-    <NavigateContext.Provider value={NavigateMemo}>
-      <nav>
-        <Space size="middle">
-          {isLogin && (
+    <nav>
+      <Space size="middle">
+        <Tooltip placement="bottom" title={locale}>
+          <Link href={router.asPath} locale={locale.toLowerCase()}>
+            <FontAwesomeIcon icon={faLanguage} className="header__nav_icon" />
+          </Link>
+        </Tooltip>
+        {isLogin ? (
+          <>
             <Link href={'/main'}>
               <Tooltip placement="bottomLeft" title={t('home')}>
                 <FontAwesomeIcon icon={faHouse} className="header__nav_icon" />
               </Tooltip>
             </Link>
-          )}
-          <Tooltip placement="bottom" title={locale}>
-            <Link href={router.asPath} locale={locale.toLowerCase()}>
-              <FontAwesomeIcon icon={faLanguage} className="header__nav_icon" />
+            <Logout showConfirm={showConfirm} />
+          </>
+        ) : (
+          <>
+            <Login />
+            <Link href={'/register'}>
+              <Tooltip placement="bottomRight" title={t('register')}>
+                <FontAwesomeIcon
+                  icon={faUserPen}
+                  className="header__nav_icon"
+                />
+              </Tooltip>
             </Link>
-          </Tooltip>
-          {isLogin ? (
-            <Tooltip placement="bottomRight" title={t('logout')}>
-              <FontAwesomeIcon
-                icon={faRightFromBracket}
-                className="header__nav_icon"
-                onClick={showConfirm}
-              />
-            </Tooltip>
-          ) : (
-            <Tooltip placement="bottomRight" title={t('login')}>
-              <FontAwesomeIcon
-                icon={faRightToBracket}
-                className="header__nav_icon"
-                onClick={handleClickModal}
-              />
-            </Tooltip>
-          )}
-        </Space>
-      </nav>
-      <ModalLogin />
-    </NavigateContext.Provider>
+          </>
+        )}
+      </Space>
+    </nav>
   );
 };
 
