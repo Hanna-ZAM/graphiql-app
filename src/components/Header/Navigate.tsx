@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   faHouse,
@@ -14,6 +14,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import app from '@/firebaseConfig';
 import Logout from './Logout';
 import Login from './Login';
+import { getCookie } from 'cookies-next';
+import { tokenName } from '@/helpers/const';
 
 const { confirm } = Modal;
 const auth = getAuth(app);
@@ -27,18 +29,17 @@ const Navigate = () => {
     confirm({
       title: t('logout_msg'),
       onOk() {
-        sessionStorage.setItem('isLoggedIn', '');
+        setIsLogin(false);
         signOut(auth);
+        router.replace('/');
       }
     });
   };
 
   useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedIn) {
-      setIsLogin(true);
-    }
-  }, []);
+    const token = getCookie(tokenName) ? true : false;
+    setIsLogin(token);
+  }, [isLogin]);
 
   return (
     <nav>
