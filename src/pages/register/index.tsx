@@ -1,8 +1,8 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import FormRegister from '@/components/auth/FormRegister';
-import { getAuth } from 'firebase/auth';
-import app from '@/firebaseConfig';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { tokenName } from '@/helpers/const';
 
 export default function RegisterPage() {
   return (
@@ -15,20 +15,26 @@ export default function RegisterPage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  const lang = locale ?? 'en';
-  const auth = getAuth(app).currentUser;
-  if (auth) {
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const { locale, req } = ctx;
+  const translations = await serverSideTranslations(locale ?? 'en', [
+    'header',
+    'common'
+  ]);
+  const token = req.cookies[tokenName];
+  if (token) {
     return {
       redirect: {
         permanent: false,
-        destination: '/'
+        destination: '/main'
       }
     };
   }
   return {
     props: {
-      ...(await serverSideTranslations(lang, ['common', 'header']))
+      ...translations
     }
   };
-}
+};
