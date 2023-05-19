@@ -1,3 +1,5 @@
 {
-  "query": "Execute query"
+  "query": "Execute query",
+  "docs": "Docs",
+  "schema": "Schema"
 }
