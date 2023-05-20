@@ -1,5 +1,16 @@
+@use '../../styles/variables.scss';
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   height: 75px;
+  background-color: $background-color;
+  transition: all 0.5s ease-in-out;
+  &.sticky {
+    backdrop-filter: blur(10px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    background-color: $background-color;
+  }
 }
 .header__wrapper {
   display: flex;
