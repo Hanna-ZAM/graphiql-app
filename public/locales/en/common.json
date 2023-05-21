@@ -2,5 +2,7 @@
   "query": "Execute query",
   "docs": "Docs",
   "schema": "Schema",
-  "placeholder": "# Write your query or mutation here"
+  "placeholder": "# Write your query or mutation here",
+  "headers": "Headers",
+  "variables": "Variables"
 }

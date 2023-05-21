@@ -6,7 +6,7 @@ import { Button, Tooltip } from 'antd';
 import { useTranslation } from 'next-i18next';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { request, gql } from 'graphql-request';
+import { request, gql, Variables } from 'graphql-request';
 import {
   getIntrospectionQuery,
   buildClientSchema,
@@ -15,23 +15,36 @@ import {
 } from 'graphql';
 import Aside from './Aside';
 import { IError } from '@/types';
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/esm/types';
 
 const endpoint = 'https://rickandmortyapi.com/graphql';
 
 const Editor = () => {
   const { t } = useTranslation('common');
   const [openDocs, setOpenDocs] = useState(false);
+  const [openHeaders, setOpenHeaders] = useState(false);
+  const [openVariables, setOpenVariables] = useState(false);
   const [openSchema, setOpenSchema] = useState(false);
   const [schema, setSchema] = useState('');
   const [docs, setDocs] = useState('');
   const [query, setQuery] = useState('');
   const [code, setCode] = useState('');
+  const [headers, setHeaders] = useState<GraphQLClientRequestHeaders>();
+  const [variables, setVariables] = useState<Variables>();
 
   const showDocs = () => {
     setOpenDocs(true);
   };
   const showSchema = () => {
     setOpenSchema(true);
+  };
+  const showHeaders = () => {
+    openHeaders ? setOpenHeaders(false) : setOpenHeaders(true);
+    openVariables && setOpenVariables(false);
+  };
+  const showVariables = () => {
+    openVariables ? setOpenVariables(false) : setOpenVariables(true);
+    openHeaders && setOpenHeaders(false);
   };
 
   const onCloseDocs = () => {
@@ -44,6 +57,15 @@ const Editor = () => {
   const handleChange = (text: string) => {
     setQuery(text);
   };
+  const handleChangeHeaders = (text: string) => {
+    const value: GraphQLClientRequestHeaders = JSON.parse(text);
+    setHeaders(value);
+  };
+  const handleChangeVariables = (text: string) => {
+    const value: Variables = JSON.parse(text);
+    setVariables(value);
+  };
+
   const handleClick = () => {
     if (query) {
       setCode('');
@@ -53,7 +75,8 @@ const Editor = () => {
 
       (async () => {
         try {
-          const result = await request(endpoint, gqlQuery);
+          const result = await request(endpoint, gqlQuery, variables, headers);
+          console.log(variables);
           setCode(JSON.stringify(result, null, 2));
         } catch (error) {
           if (error instanceof Error) {
@@ -92,6 +115,7 @@ const Editor = () => {
           .replace(/}/g, '}\n')
           .replace(/INTERFACE/g, 'INTERFACE\n');
         setSchema(data);
+        setDocs(data);
       } catch (error) {
         console.error(error);
       }
@@ -107,6 +131,14 @@ const Editor = () => {
           onClick={handleClick}
         />
       </Tooltip>
+      <div className="editor__headers_variables">
+        <Button danger onClick={showHeaders}>
+          {t('headers')}
+        </Button>
+        <Button danger onClick={showVariables}>
+          {t('variables')}
+        </Button>
+      </div>
       <div className="editor__button">
         <Button danger onClick={showDocs}>
           {t('docs')}
@@ -147,6 +179,22 @@ const Editor = () => {
         }}
         value={code}
         readOnly
+      />
+      <CodeMirror
+        className={openHeaders ? 'editor__open' : 'editor__close'}
+        height="100%"
+        theme={solarizedLight}
+        extensions={[javascript({ jsx: true })]}
+        onChange={(text) => handleChangeHeaders(text)}
+        placeholder="# HTTP Headers"
+      />
+      <CodeMirror
+        className={openVariables ? 'editor__open' : 'editor__close'}
+        height="100%"
+        theme={solarizedLight}
+        extensions={[javascript({ jsx: true })]}
+        onChange={(text) => handleChangeVariables(text)}
+        placeholder="# Query variables"
       />
     </div>
   );
