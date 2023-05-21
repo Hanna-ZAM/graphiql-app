@@ -9,15 +9,18 @@
   border: 2px solid $border-color;
   height: calc(100vh - 145px);
   background-color: $background-editor;
-  @media (max-width: 540px) {
+  @media (max-width: 680px) {
     flex-direction: column;
     gap: 5px 0;
+  }
+  @media (max-width: 520px) {
+    padding: 40px 5px 40px 5px;
   }
 }
 .editor__code {
   height: 100%;
   width: 50%;
-  @media (max-width: 540px) {
+  @media (max-width: 680px) {
     width: 100%;
     height: 50%;
   }
@@ -47,6 +50,12 @@
   justify-content: space-between;
   align-items: center;
   gap: 0 5px;
+  @media (max-width: 520px) {
+    left: auto;
+    top: auto;
+    right: 5px;
+    bottom: 5px;
+  }
 }
 .drawer {
   font-size: 14px;
@@ -92,8 +101,11 @@
   width: 50%;
   padding: 5px;
   border: 2px solid $background-editor;
-  @media (max-width: 540px) {
+  @media (max-width: 680px) {
     width: 100%;
-    height: 50%;
+    height: 30%;
+  }
+  @media (max-width: 520px) {
+    margin-bottom: 40px;
   }
 }
