@@ -58,12 +58,16 @@ const Editor = () => {
     setQuery(text);
   };
   const handleChangeHeaders = (text: string) => {
-    const value: GraphQLClientRequestHeaders = JSON.parse(text);
-    setHeaders(value);
+    try {
+      const value: GraphQLClientRequestHeaders = JSON.parse(text);
+      setHeaders(value);
+    } catch (error) {}
   };
   const handleChangeVariables = (text: string) => {
-    const value: Variables = JSON.parse(text);
-    setVariables(value);
+    try {
+      const value: Variables = JSON.parse(text);
+      setVariables(value);
+    } catch (error) {}
   };
 
   const handleClick = () => {
@@ -76,7 +80,6 @@ const Editor = () => {
       (async () => {
         try {
           const result = await request(endpoint, gqlQuery, variables, headers);
-          console.log(variables);
           setCode(JSON.stringify(result, null, 2));
         } catch (error) {
           if (error instanceof Error) {
@@ -116,9 +119,7 @@ const Editor = () => {
           .replace(/INTERFACE/g, 'INTERFACE\n');
         setSchema(data);
         setDocs(data);
-      } catch (error) {
-        console.error(error);
-      }
+      } catch (error) {}
     })();
   }, []);
 
