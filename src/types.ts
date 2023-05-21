@@ -8,3 +8,9 @@ export type AuthContextType = {
   isLogin: boolean;
   setIsLogin: (value: React.SetStateAction<boolean>) => void;
 };
+export interface IError {
+  response: {
+    errors: Array<string>;
+    status: number;
+  };
+}

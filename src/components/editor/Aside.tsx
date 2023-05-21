@@ -2,26 +2,30 @@ import { Drawer } from 'antd';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 
-type SchemaProps = {
+type AsideProps = {
   isOpen: boolean;
+  title: string;
+  data: string;
   onClose: () => void;
 };
 
-const Schema = ({ isOpen, onClose }: SchemaProps) => {
+const Aside = ({ isOpen, onClose, title, data }: AsideProps) => {
   const { t } = useTranslation('common');
 
   return (
     <Drawer
-      title={t('schema')}
+      className="drawer"
+      drawerStyle={{
+        background: '#2f2fa2'
+      }}
+      title={t(`${title}`)}
       placement="right"
       onClose={onClose}
       open={isOpen}
     >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <pre>{data}</pre>
     </Drawer>
   );
 };
 
-export default Schema;
+export default Aside;

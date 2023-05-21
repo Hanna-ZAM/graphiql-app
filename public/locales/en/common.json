@@ -1,5 +1,6 @@
 {
   "query": "Execute query",
   "docs": "Docs",
-  "schema": "Schema"
+  "schema": "Schema",
+  "placeholder": "# Write your query or mutation here"
 }
