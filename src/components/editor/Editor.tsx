@@ -11,8 +11,11 @@ import {
   getIntrospectionQuery,
   buildClientSchema,
   printSchema,
-  IntrospectionQuery
+  IntrospectionQuery,
+  GraphQLSchema,
+  buildSchema
 } from 'graphql';
+import { graphql } from 'cm6-graphql';
 import Aside from './Aside';
 import { IError } from '@/types';
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/esm/types';
@@ -26,6 +29,7 @@ const Editor = () => {
   const [openVariables, setOpenVariables] = useState(false);
   const [openSchema, setOpenSchema] = useState(false);
   const [schema, setSchema] = useState('');
+  const [graphqlSchema, setGraphqlSchema] = useState<GraphQLSchema>();
   const [docs, setDocs] = useState('');
   const [query, setQuery] = useState('');
   const [code, setCode] = useState('');
@@ -110,7 +114,11 @@ const Editor = () => {
           introspectionQuery
         );
         const clientSchema = buildClientSchema(introspectionResult);
+
+        setGraphqlSchema(clientSchema);
+
         const printedSchema = printSchema(clientSchema);
+
         const data = printedSchema
           .replace(/\n\s*\n/gs, '')
           .replace(/""".*?"""/gs, '')
@@ -160,14 +168,19 @@ const Editor = () => {
           data={schema}
         />
       </div>
-      <CodeMirror
-        className="editor__code"
-        height="100%"
-        theme={solarizedLight}
-        extensions={[javascript({ jsx: true })]}
-        onChange={(text) => handleChange(text)}
-        placeholder="# Write your query or mutation here"
-      />
+      {graphqlSchema && (
+        <CodeMirror
+          className="editor__code"
+          height="100%"
+          theme={solarizedLight}
+          extensions={[graphql(graphqlSchema)]}
+          onChange={(text) => handleChange(text)}
+          basicSetup={{
+            syntaxHighlighting: true
+          }}
+          placeholder="# Write your query or mutation here"
+        />
+      )}
       <CodeMirror
         className="editor__code"
         height="100%"
