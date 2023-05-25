@@ -8,7 +8,7 @@ import app from '@/firebaseConfig';
 import Cookies from 'js-cookie';
 import { tokenName } from '@/helpers/const';
 
-const auth = getAuth(app);
+/*const auth = getAuth(app);*/
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -29,7 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       }
       return () => unsubscribe();
     });
-  }, []);
+  }, [auth, router]);
   return (
     <AuthContext.Provider value={AuthMemo}>
       <Header />

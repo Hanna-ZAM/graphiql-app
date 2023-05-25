@@ -6,7 +6,7 @@ export type FormView = 'register' | 'login';
 
 export type AuthContextType = {
   isLogin: boolean;
-  setIsLogin: (value: React.SetStateAction<boolean>) => void;
+  setIsLogin: (/*value: React.SetStateAction<boolean>*/) => void;
 };
 export interface IError {
   response: {

@@ -12,8 +12,7 @@ import {
   buildClientSchema,
   printSchema,
   IntrospectionQuery,
-  GraphQLSchema,
-  buildSchema
+  GraphQLSchema
 } from 'graphql';
 import { graphql } from 'cm6-graphql';
 import Aside from './Aside';
@@ -65,13 +64,17 @@ const Editor = () => {
     try {
       const value: GraphQLClientRequestHeaders = JSON.parse(text);
       setHeaders(value);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleChangeVariables = (text: string) => {
     try {
       const value: Variables = JSON.parse(text);
       setVariables(value);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleClick = () => {
@@ -127,7 +130,9 @@ const Editor = () => {
           .replace(/INTERFACE/g, 'INTERFACE\n');
         setSchema(data);
         setDocs(data);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 

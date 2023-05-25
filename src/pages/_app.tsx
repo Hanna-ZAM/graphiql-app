@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { /*ReactElement, */ ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import RootLayout from '@/layouts/RootLayout';
@@ -9,7 +9,7 @@ import { appWithTranslation } from 'next-i18next';
 config.autoAddCss = false;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
+  getLayout?: (/*page: ReactElement*/) => ReactNode;
 };
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
