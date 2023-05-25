@@ -5,8 +5,7 @@
     
     "plugin:react-hooks/recommended",
     "next",
-    "prettier",
-    /*"react-hooks"*/
+    "prettier"
   ],
   
   "plugins": [ "prettier"],
