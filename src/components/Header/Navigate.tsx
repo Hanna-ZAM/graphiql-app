@@ -39,7 +39,7 @@ const Navigate = () => {
   useEffect(() => {
     const token = getCookie(tokenName) ? true : false;
     setIsLogin(token);
-  }, [isLogin]);
+  }, [isLogin, setIsLogin]);
 
   return (
     <nav>
