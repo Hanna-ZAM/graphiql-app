@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
   faHouse,
@@ -39,7 +39,7 @@ const Navigate = () => {
   useEffect(() => {
     const token = getCookie(tokenName) ? true : false;
     setIsLogin(token);
-  }, [isLogin]);
+  }, [isLogin, setIsLogin]);
 
   return (
     <nav>
