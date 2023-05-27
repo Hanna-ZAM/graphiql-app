@@ -1,8 +1,8 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import FormRegister from '@/components/auth/FormRegister';
+import FormRegister from '../../components/auth/FormRegister';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { tokenName } from '@/helpers/const';
+import { tokenName } from '../../helpers/const';
 
 export default function RegisterPage() {
   return (
