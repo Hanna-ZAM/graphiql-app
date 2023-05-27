@@ -1,8 +1,8 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import FormLogin from '@/components/auth/FormLogin';
+import FormLogin from '../../components/auth/FormLogin';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { tokenName } from '@/helpers/const';
+import { tokenName } from '../../helpers/const';
 
 export default function LoginPage() {
   return (
