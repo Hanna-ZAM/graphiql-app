@@ -16,7 +16,7 @@ import {
 } from 'graphql';
 import { graphql } from 'cm6-graphql';
 import Aside from './Aside';
-import { IError } from '@/types';
+import { IError } from '../../types';
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/esm/types';
 
 const endpoint = 'https://rickandmortyapi.com/graphql';
