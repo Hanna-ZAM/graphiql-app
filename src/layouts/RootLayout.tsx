@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import Header from '@/components/header/Header';
-import Footer from '@/components/footer/Footer';
-import { AuthContextType } from '@/types';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+import { AuthContextType } from '../types';
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import app from '@/firebaseConfig';
+import app from '../firebaseConfig'
 import Cookies from 'js-cookie';
-import { tokenName } from '@/helpers/const';
+import { tokenName } from '../helpers/const';
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

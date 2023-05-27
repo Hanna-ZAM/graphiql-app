@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Welcome from '@/components/welcome/Welcome';
+import Welcome from '../components/welcome/Welcome';
 
 export default function HomePage(/*{ props }: { props: GetServerSideProps }*/) {
   return <Welcome />;

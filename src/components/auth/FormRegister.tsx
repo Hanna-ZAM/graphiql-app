@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useTranslation } from 'next-i18next';
-import { ILogin } from '@/types';
+import { ILogin } from '../../types';
 import { useRouter } from 'next/router';
 
 const formItemLayout = {
