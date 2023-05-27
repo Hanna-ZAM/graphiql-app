@@ -4,7 +4,7 @@ import Footer from '../components/footer/Footer';
 import { AuthContextType } from '../types';
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import app from '../firebaseConfig'
+import app from '../firebaseConfig';
 import Cookies from 'js-cookie';
 import { tokenName } from '../helpers/const';
 
