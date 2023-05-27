@@ -15,7 +15,7 @@ import app from '../../firebaseConfig';
 import Logout from './Logout';
 import Login from './Login';
 import { getCookie } from 'cookies-next';
-import { tokenName } from '../../helpers/';
+import { tokenName } from '../../helpers/const';
 
 const { confirm } = Modal;
 const auth = getAuth(app);
