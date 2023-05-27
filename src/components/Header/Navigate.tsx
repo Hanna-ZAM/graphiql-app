@@ -11,11 +11,11 @@ import { i18n, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import useAuth from '../../hooks/useAuth';
 import { getAuth, signOut } from 'firebase/auth';
-import app from '../../';
+import app from '../../firebaseConfig';
 import Logout from './Logout';
 import Login from './Login';
 import { getCookie } from 'cookies-next';
-import { tokenName } from '../../helpers/const';
+import { tokenName } from '../../helpers/';
 
 const { confirm } = Modal;
 const auth = getAuth(app);
