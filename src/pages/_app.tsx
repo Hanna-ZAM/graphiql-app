@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import RootLayout from '../../layouts/RootLayout';
+import RootLayout from '../layouts/RootLayout';
 import './global.scss';
 import '../firebaseConfig';
 import { config } from '@fortawesome/fontawesome-svg-core';
