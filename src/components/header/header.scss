@@ -1,0 +1,56 @@
+@use '../../styles/variables.scss';
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 75px;
+  background-color: $background-color;
+  transition: all 0.5s ease-in-out;
+  &.sticky {
+    backdrop-filter: blur(10px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    background-color: $background-color;
+  }
+}
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__logo_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 75px;
+  @media (max-width: 380px) {
+    width: 32px;
+  }
+}
+.header__logo_image {
+  display: block;
+  background-image: url('../../assets/graphql_logo.svg');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+}
+.header__logo_name {
+  color: $text-color;
+  font-size: 1.5rem;
+  transition: 0.5s;
+  &:hover {
+    color: $navigate-color;
+  }
+  @media (max-width: 380px) {
+    display: none;
+  }
+}
+.header__nav_icon {
+  cursor: pointer;
+  width: 30px;
+  height: 24px;
+  transition: 0.5s;
+  &:hover {
+    color: $navigate-color;
+  }
+}

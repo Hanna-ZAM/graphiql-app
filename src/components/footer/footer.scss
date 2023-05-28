@@ -1,0 +1,33 @@
+@use '../../styles/variables.scss';
+.footer {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+  }
+  .team {
+    display: flex;
+    gap: 0.5rem;
+    justify-self: start;
+  }
+  &-icon {
+    cursor: pointer;
+    width: 30px;
+    transition: 0.5s;
+    &:hover {
+      color: $navigate-color;
+    }
+  }
+  .rss-school {
+    justify-self: end;
+    width: 90px;
+    color: $text-color;
+    &:hover {
+      color: $navigate-color;
+    }
+    path {
+      fill: currentColor;
+    }
+  }
+}
