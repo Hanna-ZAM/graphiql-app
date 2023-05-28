@@ -5,8 +5,8 @@ import { AuthContextType } from '../types';
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import app from '../firebaseConfig';
-import Cookies from 'js-cookie';
 import { tokenName } from '../helpers/const';
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
