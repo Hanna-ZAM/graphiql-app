@@ -3,6 +3,7 @@ import Logo from './Logo';
 import Navigate from './Navigate';
 import { useEffect, useRef } from 'react';
 
+
 const Header = () => {
   const headerRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
