@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Logo from './Logo';
+import Logo from './Logo13';
 import Navigate from './Navigate';
 import { useEffect, useRef } from 'react';
 
