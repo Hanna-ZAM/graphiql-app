@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Logo from './Logo13';
-import Navigate from './Navigate';
+import Navigate from './Navigate123';
 import { useEffect, useRef } from 'react';
 
 const Header = () => {
