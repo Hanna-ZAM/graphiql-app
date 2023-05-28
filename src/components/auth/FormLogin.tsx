@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { ILogin } from '@/types';
+import { ILogin } from '../../types';
 import { useTranslation } from 'next-i18next';
 
 const FormLogin = () => {

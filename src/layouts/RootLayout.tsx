@@ -1,14 +1,12 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import Header from '@/components/header/Header';
-import Footer from '@/components/footer/Footer';
-import { AuthContextType } from '@/types';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+import { AuthContextType } from '../types';
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import app from '@/firebaseConfig';
+import app from '../firebaseConfig';
+import { tokenName } from '../helpers/const';
 import Cookies from 'js-cookie';
-import { tokenName } from '@/helpers/const';
-
-const auth = getAuth(app);
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -29,7 +27,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       }
       return () => unsubscribe();
     });
-  }, []);
+  }, [auth, router]);
   return (
     <AuthContext.Provider value={AuthMemo}>
       <Header />

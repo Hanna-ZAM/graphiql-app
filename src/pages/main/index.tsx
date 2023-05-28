@@ -1,8 +1,8 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Editor from '@/components/editor/Editor';
+import Editor from '../../components/editor/Editor';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { tokenName } from '@/helpers/const';
+import { tokenName } from '../../helpers/const';
 
 export default function MainPage() {
   return (
