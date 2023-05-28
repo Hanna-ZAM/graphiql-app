@@ -30,9 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   }, [auth, router]);
   return (
     <AuthContext.Provider value={AuthMemo}>
-    
       <main className="main container">{children}</main>
-    
     </AuthContext.Provider>
   );
 };
